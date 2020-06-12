@@ -22,12 +22,12 @@ import java.io.InputStream;
  * @Version 1.0
  **/
 @RestController
-public class UploadController {
+public class FastDFSController {
 
-    private static Logger logger = LoggerFactory.getLogger(UploadController.class);
+    private static Logger logger = LoggerFactory.getLogger(FastDFSController.class);
 
-    @PostMapping("/upload")
-    public String upload(@RequestParam("file") MultipartFile file,
+    @PostMapping("/dfsUpload")
+    public String dfsUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
         if (file.isEmpty()) {
            return "文件不能为空！";
@@ -41,8 +41,8 @@ public class UploadController {
         return path;
     }
 
-    @GetMapping("/download")
-    public void download(@RequestParam("filePath") String filePath, HttpServletResponse response) {
+    @GetMapping("/dfsDownload")
+    public void dfsDownload(@RequestParam("filePath") String filePath, HttpServletResponse response) {
         try {
             byte[] file = FastDFSClient.downFile("group1", filePath);
             response.getOutputStream().write(file);
